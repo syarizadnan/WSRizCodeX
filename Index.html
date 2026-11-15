@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RizCodex</title>
+<style>
+:root{--bg:#f6f7f5;--card:#fff;--tx:#14201a;--mut:#5d6b63;--ac:#128c4a;--acx:#fff;--bd:#dfe4df;--warn:#b45309;--err:#b91c1c;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1512;--card:#18211c;--tx:#e8f0ea;--mut:#98a89e;--ac:#2bbd6b;--acx:#05180d;--bd:#2a362f;--warn:#f59e0b;--err:#f87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0f1512;--card:#18211c;--tx:#e8f0ea;--mut:#98a89e;--ac:#2bbd6b;--acx:#05180d;--bd:#2a362f;--warn:#f59e0b;--err:#f87171;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.4rem;margin:8px 0 4px}
+p.sub{color:var(--mut);margin:0 0 18px;font-size:.95rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg label{border:1.5px solid var(--bd);border-radius:10px;padding:10px;text-align:center;cursor:pointer;font-size:.92rem}
+.seg input{display:none}
+.seg label:has(input:checked){border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-weight:600}
+.drop{display:block;border:2px dashed var(--bd);border-radius:12px;padding:28px 12px;text-align:center;cursor:pointer;color:var(--mut)}
+.drop.on{border-color:var(--ac)}
+.drop b{color:var(--tx);display:block;margin-bottom:4px}
+input[type=file]{display:none}
+button{width:100%;border:0;border-radius:12px;padding:14px;font-size:1rem;font-weight:600;background:var(--ac);color:var(--acx);cursor:pointer}
+button:disabled{opacity:.5;cursor:default}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:.93rem;padding:3px 0}
+.row span:first-child{color:var(--mut)}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin:10px 0 6px}
+.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .2s}
+.warn{color:var(--warn);font-size:.9rem;margin:8px 0 0}
+.err{color:var(--err);font-size:.92rem;margin:8px 0 0}
+.hide{display:none}
+video{width:100%;border-radius:10px;background:#000;margin-bottom:10px;max-height:50vh}
+small{color:var(--mut)}
+</style>
+</head>
+<body>
+<main>
+<h1>RizCodex</h1>
+<p class="sub">Compress video untuk WhatsApp. 1080p, saiz dikunci ikut had WhatsApp. Semua proses dalam fon/browser kau, video tak dihantar ke mana-mana.</p>
+
+<div class="card">
+  <div class="seg" id="seg">
+    <label><input type="radio" name="lim" value="10" checked>WhatsApp biasa<br><small>maks 10 MB</small></label>
+    <label><input type="radio" name="lim" value="32">WhatsApp Web<br><small>maks 32 MB</small></label>
+  </div>
+</div>
+
+<div class="card">
+  <label class="drop" id="drop" for="f"><b>Tekan untuk pilih video</b>atau seret fail ke sini</label>
+  <input type="file" id="f" accept="video/*">
+  <div id="info" class="hide" style="margin-top:12px"></div>
+  <p class="warn hide" id="warn"></p>
+  <p class="err hide" id="err"></p>
+  <button id="go" class="hide" style="margin-top:12px">Compress</button>
+  <div id="prog" class="hide"><div class="bar"><i id="pb"></i></div><small id="pt">Memproses…</small></div>
+</div>
+
+<div class="card hide" id="res">
+  <video id="pv" controls playsinline></video>
+  <div class="row"><span>Saiz asal</span><span id="so"></span></div>
+  <div class="row"><span>Saiz baru</span><span id="sn"></span></div>
+  <div class="row"><span>Resolusi</span><span id="rs"></span></div>
+  <button id="dl" style="margin-top:12px">Simpan dalam fon</button>
+  <p class="err hide" id="derr"></p>
+</div>
+</main>
+
+<script>
+window.__mbReady=(async function(){
+  var V=['1.39.1','1.25.7'];
+  for(var i=0;i<V.length&&typeof window.Mediabunny==='undefined';i++){
+    try{window.Mediabunny=await import('https://cdn.jsdelivr.net/npm/mediabunny@'+V[i]+'/+esm')}
+    catch(e){window.__mbErr=String(e&&e.message||e)}
+  }
+})();
+</script>
+<script>
+(window.__mbReady||Promise.resolve()).then(function(){
+var $=function(i){return document.getElementById(i)};
+var file=null,outBlob=null,outName='video-wa.mp4',busy=false;
+var AUDIO_BR=96000;
+function mb(b){return (b/1048576).toFixed(1)+' MB'}
+function show(id,v){$(id).classList.toggle('hide',!v)}
+function setErr(m){$('err').textContent=m||'';show('err',!!m)}
+function limit(){return +document.querySelector('input[name=lim]:checked').value}
+
+var hasLib=typeof Mediabunny!=='undefined',hasWC=('VideoEncoder' in window)&&('VideoDecoder' in window);
+var supported=hasLib&&hasWC;
+if(!hasLib)setErr('Library compress gagal dimuat. Cuba refresh, atau buka link ni terus di Chrome/Safari, bukan dalam app lain. [kod: LIB]'+(window.__mbErr?' Butiran: '+window.__mbErr:''));
+else if(!hasWC)setErr('Browser/app ni tak support WebCodecs. Buka link ni terus di Chrome (Android) atau Safari (iPhone, iOS 16.4 ke atas), bukan dalam app Claude atau WhatsApp. [kod: WC]');
+
+function pick(f){
+  if(!f||busy)return;
+  if(!/^video\//.test(f.type)&&!/\.(mp4|mov|m4v|webm|mkv|3gp)$/i.test(f.name)){setErr('Sila pilih fail video.');return}
+  file=f;outBlob=null;show('res',false);setErr('');
+  $('info').innerHTML='<div class="row"><span>Fail</span><span style="text-align:right;word-break:break-all">'+f.name.replace(/[<>&]/g,'')+'</span></div><div class="row"><span>Saiz</span><span>'+mb(f.size)+'</span></div>';
+  show('info',true);show('go',supported);estimate();
+}
+async function meta(){
+  var input=new Mediabunny.Input({source:new Mediabunny.BlobSource(file),formats:Mediabunny.ALL_FORMATS});
+  var dur=await input.computeDuration();
+  var vt=await input.getPrimaryVideoTrack();
+  return {input:input,dur:dur,vt:vt};
+}
+async function estimate(){
+  $('warn').classList.add('hide');
+  try{
+    var m=await meta();
+    if(!m.vt)return;
+    var target=limit()*1048576*0.92;
+    var vbr=Math.floor(target*8/m.dur-AUDIO_BR);
+    $('info').insertAdjacentHTML('beforeend','<div class="row"><span>Tempoh</span><span>'+Math.round(m.dur)+' saat</span></div>');
+    if(vbr<1500000){
+      $('warn').textContent='Video ni '+Math.round(m.dur)+' saat. Nak muat '+limit()+' MB, bitrate cuma ~'+(Math.max(vbr,0)/1e6).toFixed(1)+' Mbps. Kualiti akan turun sikit (1080p ideal perlu 3-5 Mbps). Pilih 32 MB atau potong video lebih pendek.';
+      show('warn',true);
+    }
+  }catch(e){}
+}
+$('f').addEventListener('change',function(e){pick(e.target.files[0])});
+$('seg').addEventListener('change',function(){if(file&&!busy){show('res',false);estimate()}});
+var d=$('drop');
+['dragover','dragenter'].forEach(function(t){d.addEventListener(t,function(e){e.preventDefault();d.classList.add('on')})});
+['dragleave','drop'].forEach(function(t){d.addEventListener(t,function(e){e.preventDefault();d.classList.remove('on')})});
+d.addEventListener('drop',function(e){pick(e.dataTransfer.files[0])});
+
+$('go').addEventListener('click',async function(){
+  if(!file||busy)return;
+  busy=true;setErr('');show('res',false);$('go').disabled=true;show('prog',true);$('pb').style.width='0%';$('pt').textContent='Memproses…';
+  try{
+    var m=await meta();
+    if(!m.vt)throw new Error('Tiada video track dalam fail ini.');
+    var target=limit()*1048576*0.92;
+    var vbr=Math.max(150000,Math.floor(target*8/m.dur-AUDIO_BR));
+    var w=m.vt.displayWidth,h=m.vt.displayHeight;
+    var v={codec:'avc',bitrate:vbr};
+    if(Math.min(w,h)>1080){ if(h<=w)v.height=1080; else v.width=1080; }
+    var output=new Mediabunny.Output({format:new Mediabunny.Mp4OutputFormat(),target:new Mediabunny.BufferTarget()});
+    var conv=await Mediabunny.Conversion.init({input:m.input,output:output,video:v,audio:{codec:'aac',bitrate:AUDIO_BR}});
+    conv.onProgress=function(p){var x=Math.round(p*100);$('pb').style.width=x+'%';$('pt').textContent='Memproses… '+x+'%'};
+    await conv.execute();
+    outBlob=new Blob([output.target.buffer],{type:'video/mp4'});
+    outName=file.name.replace(/\.[^.]+$/,'')+'-wa.mp4';
+    var url=URL.createObjectURL(outBlob);
+    $('pv').src=url;
+    $('so').textContent=mb(file.size);
+    $('sn').textContent=mb(outBlob.size)+(outBlob.size>limit()*1048576?' (lebih had!)':'');
+    var vt2=v.height?'1080p':v.width?'1080p':w+'×'+h;
+    $('rs').textContent=(v.height||v.width)?'1080p (asal '+w+'×'+h+')':w+'×'+h+' (asal, tak perlu kecilkan)';
+    show('res',true);
+    if(outBlob.size>limit()*1048576)setErr('Saiz masih lebih had. Cuba potong video lebih pendek.');
+  }catch(e){
+    setErr('Gagal compress: '+(e&&e.message?e.message:e));
+  }finally{
+    busy=false;$('go').disabled=false;show('prog',false);
+  }
+});
+
+$('dl').addEventListener('click',async function(){
+  if(!outBlob)return;
+  $('derr').classList.add('hide');
+  try{
+    var dls=window.claude&&window.claude.use?await window.claude.use('downloads'):null;
+    if(dls){await dls.save({filename:outName,data:outBlob})}
+    else{var a=document.createElement('a');a.href=URL.createObjectURL(outBlob);a.download=outName;document.body.appendChild(a);a.click();a.remove()}
+  }catch(e){
+    if(e&&e.code==='declined')return;
+    $('derr').textContent='Tak dapat simpan. Tekan lama pada video di atas, pilih simpan.';show('derr',true);
+  }
+});
+});
+</script>
+</body>
+</html>
