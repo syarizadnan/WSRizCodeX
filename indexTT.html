@@ -1,6 +1,16 @@
 <!DOCTYPE html>
 <html lang="ms">
 <head>
+
+  <!-- Tampal dalam <head> indexTT.html sahaja, sebelum script lain -->
+<script>
+(function(){
+  var ok=false;
+  try{ok=+localStorage.getItem("rx_ok_tt")>Date.now()}catch(e){}
+  if(!ok)location.replace("https://syarizadnan.github.io/WSRizCodeX/index.html");
+})();
+</script>
+  
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RizCodeXTT | 4K ke 1080p untuk TikTok</title>
