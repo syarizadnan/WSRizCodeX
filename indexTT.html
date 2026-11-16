@@ -2,12 +2,55 @@
 <html lang="ms">
 <head>
 <meta charset="utf-8">
-
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RizCodeX | 4K ke 1080p untuk TikTok</title>
+<style>
+:root{--bg:#08080c;--card:#14141c;--tx:#fff;--mut:#9a9aab;--pink:#fe2c55;--cyan:#25f4ee;--bd:#262634;--warn:#fbbf24;--err:#ff6b81;color-scheme:dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(600px 300px at 90% -5%,rgba(254,44,85,.22),transparent),radial-gradient(600px 300px at 5% 0,rgba(37,244,238,.18),transparent),var(--bg);background-attachment:fixed;color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:520px;margin:0 auto;padding:22px 16px 48px}
+.brand{text-align:center;font-size:1.9rem;font-weight:900;letter-spacing:.5px;margin:0 0 14px;background:linear-gradient(90deg,var(--cyan),#fff,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo{width:64px;height:64px;border-radius:20px;background:#000;display:grid;place-items:center;margin:0 auto 12px;box-shadow:-3px -3px 0 var(--cyan),3px 3px 0 var(--pink);font-size:30px}
+h1{font-size:1.55rem;margin:0 0 6px;text-align:center;font-weight:800;text-shadow:-2px 0 var(--cyan),2px 0 var(--pink)}
+p.sub{color:var(--mut);margin:0 0 16px;font-size:.93rem;text-align:center}
+.steps{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.steps span{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:6px 12px;font-size:.82rem;font-weight:600}
+.steps b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--pink));color:#000;font-size:.75rem;margin-right:6px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:18px;margin-bottom:16px}
+.drop{display:block;border:2px dashed #3a3a4d;border-radius:20px;padding:30px 12px;text-align:center;cursor:pointer;color:var(--mut);transition:.2s}
+.drop.on,.drop:hover{border-color:var(--cyan);background:rgba(37,244,238,.06)}
+.drop .ic{font-size:40px;display:block;margin-bottom:6px}
+.drop b{color:var(--tx);display:block;margin-bottom:2px;font-size:1.05rem}
+input[type=file]{display:none}
+button{width:100%;border:0;border-radius:999px;padding:15px;font-size:1.02rem;font-weight:800;background:linear-gradient(90deg,var(--pink),#ff5c7a);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(254,44,85,.35);transition:transform .1s}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.5;cursor:default}
+#dl{background:linear-gradient(90deg,var(--cyan),#6af7f2);color:#001818;box-shadow:0 6px 20px rgba(37,244,238,.3)}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:.92rem;padding:7px 12px;background:#1d1d29;border-radius:14px;margin-bottom:6px}
+.row span:first-child{color:var(--mut)}
+.row span:last-child{font-weight:600}
+.bar{height:12px;background:#22222e;border-radius:99px;overflow:hidden;margin:12px 0 8px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .2s}
+.bubble{position:relative;border-radius:18px;padding:10px 14px;font-size:.9rem;margin:10px 0 0}
+.bubble::after{content:"";position:absolute;left:18px;bottom:-7px;width:14px;height:14px;background:inherit;transform:rotate(45deg);border-radius:3px}
+.warn{background:#2a2410;color:var(--warn)}
+.err{background:#2d141b;color:var(--err)}
+.hide{display:none}
+.done{display:inline-block;background:linear-gradient(90deg,var(--cyan),var(--pink));color:#000;font-weight:800;border-radius:999px;padding:5px 14px;font-size:.88rem;margin-bottom:12px}
+video{width:100%;border-radius:18px;background:#000;margin-bottom:12px;max-height:50vh}
+small{color:var(--mut)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.seg input{display:none}
+.seg span{display:block;text-align:center;padding:10px 4px;border-radius:999px;border:1.5px solid var(--bd);background:#1d1d29;font-weight:700;font-size:.9rem;cursor:pointer}
+.seg input:checked+span{border-color:var(--cyan);background:rgba(37,244,238,.14);color:var(--cyan)}
+.btns{display:flex;gap:10px;margin-top:14px}
+.btns button{flex:1;padding:15px 8px}
+.tip{text-align:center;color:var(--mut);font-size:.82rem;margin-top:6px}
+</style>
+</head>
 <body>
-  
-
-
-  
 <main>
 <div class="brand">RizCodeX</div>
 <div class="logo">🎬</div>
@@ -21,6 +64,7 @@
   <div id="info" class="hide" style="margin-top:14px"></div>
   <p class="bubble warn hide" id="warn"></p>
   <p class="bubble err hide" id="err"></p>
+  <div id="fpsbox" class="hide" style="margin-top:16px"><small>🎞️ FPS output</small><div class="seg"><label><input type="radio" name="fps" value="0" checked><span>Asal</span></label><label><input type="radio" name="fps" value="60"><span>60 fps</span></label><label><input type="radio" name="fps" value="120"><span>120 fps</span></label></div><small>60/120 fps: frame digandakan (bukan frame baru), gerakan tak jadi lebih lancar. Fail jadi lebih berat.</small></div>
   <button id="go" class="hide" style="margin-top:16px">⚡ Tukar ke 1080p</button>
   <button id="go2" class="hide" style="margin-top:10px;background:transparent;color:var(--tx);border:1.5px solid var(--bd);box-shadow:none">🔇 Cuba tanpa audio</button>
   <div id="prog" class="hide"><div class="bar"><i id="pb"></i></div><small id="pt">Memproses…</small><br><small>Biar skrin hidup dan kekal di halaman ni sampai siap.</small></div>
@@ -33,10 +77,10 @@
   <div class="row"><span>Saiz baru</span><span id="sn"></span></div>
   <div class="row"><span>Resolusi</span><span id="rs"></span></div>
   <div class="row"><span>FPS</span><span id="fp"></span></div>
-  <button id="dl" style="margin-top:14px">💾 Simpan dalam fon</button>
+  <div class="btns"><button id="dl">💾 Simpan dalam fon</button></div>
   <p class="bubble err hide" id="derr"></p>
 </div>
-<p class="tip">Lepas simpan, buka TikTok dan upload dari galeri 🎉</p>
+<p class="tip">Lepas siap, tekan Simpan, lepas tu upload dari galeri TikTok 🎉</p>
 </main>
 
 <script>
@@ -67,7 +111,7 @@ function pick(f){
   if(!/^video\//.test(f.type)&&!/\.(mp4|mov|m4v|webm|mkv|3gp)$/i.test(f.name)){setErr('Sila pilih fail video.');return}
   file=f;outBlob=null;show('res',false);setErr('');show('warn',false);
   $('info').innerHTML='<div class="row"><span>Fail</span><span style="text-align:right;word-break:break-all">'+f.name.replace(/[<>&]/g,'')+'</span></div><div class="row"><span>Saiz</span><span>'+mb(f.size)+'</span></div>';
-  show('info',true);show('go',supported);describe();
+  show('info',true);show('go',supported);show('fpsbox',supported);describe();
 }
 async function meta(){
   var input=new Mediabunny.Input({source:new Mediabunny.BlobSource(file),formats:Mediabunny.ALL_FORMATS});
@@ -106,6 +150,9 @@ async function run(noAudio){
     var v={codec:'avc',bitrate:vbr};
     var scaled=Math.min(w,h)>1080;
     if(scaled){ if(h<=w)v.height=1080; else v.width=1080; }
+    var sf=await fpsOf(m.vt);
+    var tf=+document.querySelector('input[name=fps]:checked').value;
+    if(tf&&sf&&tf>sf+1)v.frameRate=tf;else tf=0;
     var tries=noAudio?[{discard:true}]:[undefined,{codec:'aac',numberOfChannels:2,sampleRate:44100,bitrate:128000}];
     var output,lastE=null;
     for(var t=0;t<tries.length;t++){
@@ -129,8 +176,7 @@ async function run(noAudio){
     $('so').textContent=mb(file.size);
     $('sn').textContent=mb(outBlob.size);
     $('rs').textContent=scaled?'1080p (asal '+w+'×'+h+')':w+'×'+h+' (asal)';
-    var fps=await fpsOf(m.vt);
-    $('fp').textContent=fps?Math.round(fps*100)/100+' (sama macam asal)':'Sama macam asal';
+    $('fp').textContent=tf?tf+' (digandakan dari '+Math.round(sf)+')':(sf?Math.round(sf*100)/100+' (sama macam asal)':'Sama macam asal');
     show('res',true);
     if(noAudio){show('warn',true);$('warn').textContent='Video ni disimpan tanpa audio.'}
   }catch(e){
