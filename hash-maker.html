@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ms"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hash Maker RizCodeX</title>
+<style>
+body{font:16px/1.5 system-ui,sans-serif;max-width:520px;margin:0 auto;padding:24px 16px;background:#f4f6f8;color:#12171c}
+@media (prefers-color-scheme:dark){body{background:#0d1115;color:#eef2f5}}
+input,textarea,button{font:inherit;width:100%;padding:12px;border-radius:12px;border:1.5px solid #8a949c;background:transparent;color:inherit;margin-top:8px}
+button{background:#12171c;color:#fff;border-color:#12171c;font-weight:700;cursor:pointer}
+@media (prefers-color-scheme:dark){button{background:#eef2f5;color:#0d1115}}
+textarea{min-height:120px;font-family:ui-monospace,monospace;font-size:.85rem}
+</style></head><body>
+<h1>Hash Maker</h1>
+<p>Taip satu atau lebih kod, satu baris satu kod. Salin hasilnya ke dalam senarai <code>hashes</code> dalam index.html.</p>
+<textarea id="i" placeholder="kod1&#10;kod2&#10;kod3"></textarea>
+<button id="b">Kira hash</button>
+<textarea id="o" readonly></textarea>
+<script>
+document.getElementById("b").onclick=async function(){
+  var lines=document.getElementById("i").value.split("\n").map(s=>s.trim()).filter(Boolean),out=[];
+  for(var l of lines){
+    var b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(l));
+    var h=Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,"0")).join("");
+    out.push('"'+h+'", /* '+l+' */');
+  }
+  document.getElementById("o").value=out.join("\n");
+};
+</script></body></html>
