@@ -1,0 +1,8 @@
+<!-- Tampal dalam <head> indexTT.html sahaja, sebelum script lain -->
+<script>
+(function(){
+  var ok=false;
+  try{ok=+localStorage.getItem("rx_ok_tt")>Date.now()}catch(e){}
+  if(!ok)location.replace("https://syarizadnan.github.io/WSRizCodeX/index.html");
+})();
+</script>
