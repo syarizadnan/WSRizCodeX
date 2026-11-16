@@ -5,36 +5,48 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>RizCodex</title>
 <style>
-:root{--bg:#f6f7f5;--card:#fff;--tx:#14201a;--mut:#5d6b63;--ac:#128c4a;--acx:#fff;--bd:#dfe4df;--warn:#b45309;--err:#b91c1c;
+:root{--bg:#ece5dd;--card:#fff;--tx:#111b21;--mut:#667781;--ac:#25d366;--acd:#128c7e;--acx:#fff;--bd:#e1e7e4;--bub:#dcf8c6;--hd1:#075e54;--hd2:#128c7e;--warn:#b45309;--err:#b91c1c;
 box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1512;--card:#18211c;--tx:#e8f0ea;--mut:#98a89e;--ac:#2bbd6b;--acx:#05180d;--bd:#2a362f;--warn:#f59e0b;--err:#f87171;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f1512;--card:#18211c;--tx:#e8f0ea;--mut:#98a89e;--ac:#2bbd6b;--acx:#05180d;--bd:#2a362f;--warn:#f59e0b;--err:#f87171;color-scheme:dark}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0b141a;--card:#202c33;--tx:#e9edef;--mut:#8696a0;--ac:#25d366;--acd:#00a884;--acx:#04210f;--bd:#2a3942;--bub:#005c4b;--hd1:#1f2c34;--hd2:#202c33;--warn:#f59e0b;--err:#f87171;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0b141a;--card:#202c33;--tx:#e9edef;--mut:#8696a0;--ac:#25d366;--acd:#00a884;--acx:#04210f;--bd:#2a3942;--bub:#005c4b;--hd1:#1f2c34;--hd2:#202c33;--warn:#f59e0b;--err:#f87171;color-scheme:dark}
 html{scroll-padding-top:env(safe-area-inset-top,0px)}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
-main{max-width:520px;margin:0 auto;padding:20px 16px 40px}
-h1{font-size:1.4rem;margin:8px 0 4px}
-p.sub{color:var(--mut);margin:0 0 18px;font-size:.95rem}
-.card{background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:16px;margin-bottom:14px}
+body{margin:0;background-color:var(--bg);background-image:radial-gradient(color-mix(in srgb,var(--mut) 14%,transparent) 1.2px,transparent 1.2px);background-size:22px 22px;color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;min-height:100vh}
+.top{background:linear-gradient(135deg,var(--hd1),var(--hd2));color:#fff;padding:22px 16px 40px}
+.top>div{max-width:520px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.logo{width:52px;height:52px;border-radius:16px;background:var(--ac);display:grid;place-items:center;flex:none;box-shadow:0 6px 16px rgba(0,0,0,.25)}
+.logo svg{width:28px;height:28px;fill:#fff}
+h1{font-size:1.55rem;margin:0;line-height:1.15;letter-spacing:.2px}
+.top p{margin:2px 0 0;opacity:.85;font-size:.92rem}
+main{max-width:520px;margin:-24px auto 0;padding:0 16px 40px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:18px;padding:16px;margin-bottom:14px;box-shadow:0 4px 14px rgba(0,0,0,.07)}
+h2{font-size:1rem;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.n{width:26px;height:26px;border-radius:50%;background:var(--ac);color:var(--acx);display:grid;place-items:center;font-size:.85rem;font-weight:700;flex:none}
 .seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
-.seg label{border:1.5px solid var(--bd);border-radius:10px;padding:10px;text-align:center;cursor:pointer;font-size:.92rem}
+.seg label{border:1.5px solid var(--bd);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer;font-size:.92rem;line-height:1.3;transition:.15s}
 .seg input{display:none}
-.seg label:has(input:checked){border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent);font-weight:600}
-.drop{display:block;border:2px dashed var(--bd);border-radius:12px;padding:28px 12px;text-align:center;cursor:pointer;color:var(--mut)}
-.drop.on{border-color:var(--ac)}
-.drop b{color:var(--tx);display:block;margin-bottom:4px}
+.seg label:has(input:checked){border-color:var(--ac);background:var(--bub);font-weight:600;box-shadow:0 0 0 3px color-mix(in srgb,var(--ac) 22%,transparent)}
+.drop{display:block;border:2px dashed color-mix(in srgb,var(--ac) 60%,var(--bd));border-radius:16px;padding:26px 12px;text-align:center;cursor:pointer;color:var(--mut);background:color-mix(in srgb,var(--ac) 5%,transparent);transition:.15s}
+.drop.on{border-color:var(--ac);background:color-mix(in srgb,var(--ac) 12%,transparent)}
+.drop svg{width:40px;height:40px;fill:var(--acd);display:block;margin:0 auto 6px}
+.drop b{color:var(--tx);display:block;margin-bottom:2px}
 input[type=file]{display:none}
-button{width:100%;border:0;border-radius:12px;padding:14px;font-size:1rem;font-weight:600;background:var(--ac);color:var(--acx);cursor:pointer}
-button:disabled{opacity:.5;cursor:default}
-.row{display:flex;justify-content:space-between;gap:8px;font-size:.93rem;padding:3px 0}
+button{width:100%;border:0;border-radius:999px;padding:14px;font-size:1rem;font-weight:700;background:linear-gradient(135deg,var(--ac),var(--acd));color:#fff;cursor:pointer;box-shadow:0 4px 12px color-mix(in srgb,var(--acd) 45%,transparent);transition:transform .1s}
+button:active{transform:scale(.98)}
+button:disabled{opacity:.5;cursor:default;box-shadow:none}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:.93rem;padding:4px 0}
 .row span:first-child{color:var(--mut)}
-.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin:10px 0 6px}
-.bar i{display:block;height:100%;width:0;background:var(--ac);transition:width .2s}
+#info{background:var(--bub);border-radius:14px 14px 14px 4px;padding:8px 12px}
+.bar{height:10px;background:var(--bd);border-radius:6px;overflow:hidden;margin:12px 0 6px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--acd));transition:width .2s}
 .warn{color:var(--warn);font-size:.9rem;margin:8px 0 0}
 .err{color:var(--err);font-size:.92rem;margin:8px 0 0}
 .hide{display:none}
-video{width:100%;border-radius:10px;background:#000;margin-bottom:10px;max-height:50vh}
+video{width:100%;border-radius:14px;background:#000;margin-bottom:10px;max-height:50vh}
 small{color:var(--mut)}
+.stats{background:var(--bub);border-radius:14px 14px 4px 14px;padding:8px 12px}
+button.ghost{background:transparent;color:var(--acd);border:2px solid var(--ac);box-shadow:none}
+.foot{text-align:center;color:var(--mut);font-size:.82rem;margin-top:8px}
 </style>
 </head>
 <body>
@@ -46,11 +58,13 @@ small{color:var(--mut)}
   </a>
 </div>
   
+<header class="top"><div>
+  <div class="logo"><svg viewBox="0 0 24 24"><path d="M4 6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v3l4-2.5v11L16 15v3a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z"/></svg></div>
+  <span><h1>RizCodex</h1><p>Compress video untuk WhatsApp</p></span>
+</div></header>
 <main>
-<h1>RizCodex</h1>
-<p class="sub">Compress video untuk WhatsApp. 1080p, saiz dikunci ikut had WhatsApp. Semua proses dalam fon/browser kau, video tak dihantar ke mana-mana.</p>
-
 <div class="card">
+  <h2><span class="n">1</span>Pilih had saiz</h2>
   <div class="seg" id="seg">
     <label><input type="radio" name="lim" value="10" checked>WhatsApp biasa<br><small>maks 10 MB</small></label>
     <label><input type="radio" name="lim" value="32">WhatsApp Web<br><small>maks 32 MB</small></label>
@@ -58,23 +72,29 @@ small{color:var(--mut)}
 </div>
 
 <div class="card">
-  <label class="drop" id="drop" for="f"><b>Tekan untuk pilih video</b>atau seret fail ke sini</label>
+  <h2><span class="n">2</span>Upload &amp; compress</h2>
+  <label class="drop" id="drop" for="f"><svg viewBox="0 0 24 24"><path d="M12 3l5 5h-3.5v6h-3V8H7zM5 17h14v3H5z"/></svg><b>Tekan untuk pilih video</b>atau seret fail ke sini</label>
   <input type="file" id="f" accept="video/*">
   <div id="info" class="hide" style="margin-top:12px"></div>
   <p class="warn hide" id="warn"></p>
   <p class="err hide" id="err"></p>
-  <button id="go" class="hide" style="margin-top:12px">Compress</button>
+  <button id="go" class="hide" style="margin-top:12px">Compress sekarang</button>
   <div id="prog" class="hide"><div class="bar"><i id="pb"></i></div><small id="pt">Memproses…</small></div>
 </div>
 
 <div class="card hide" id="res">
+  <h2><span class="n">3</span>Siap, sedia untuk WhatsApp!</h2>
   <video id="pv" controls playsinline></video>
-  <div class="row"><span>Saiz asal</span><span id="so"></span></div>
-  <div class="row"><span>Saiz baru</span><span id="sn"></span></div>
-  <div class="row"><span>Resolusi</span><span id="rs"></span></div>
+  <div class="stats">
+    <div class="row"><span>Saiz asal</span><span id="so"></span></div>
+    <div class="row"><span>Saiz baru</span><span id="sn"></span></div>
+    <div class="row"><span>Resolusi</span><span id="rs2"></span></div>
+  </div>
   <button id="dl" style="margin-top:12px">Simpan dalam fon</button>
+  <button id="again" class="ghost" style="margin-top:10px">Convert video lain</button>
   <p class="err hide" id="derr"></p>
 </div>
+<p class="foot">Semua proses dalam browser kau. Video tak dihantar ke mana-mana.</p>
 </main>
 
 <script>
@@ -157,7 +177,7 @@ $('go').addEventListener('click',async function(){
     $('so').textContent=mb(file.size);
     $('sn').textContent=mb(outBlob.size)+(outBlob.size>limit()*1048576?' (lebih had!)':'');
     var vt2=v.height?'1080p':v.width?'1080p':w+'×'+h;
-    $('rs').textContent=(v.height||v.width)?'1080p (asal '+w+'×'+h+')':w+'×'+h+' (asal, tak perlu kecilkan)';
+    $('rs2').textContent=(v.height||v.width)?'1080p (asal '+w+'×'+h+')':w+'×'+h+' (asal, tak perlu kecilkan)';
     show('res',true);
     if(outBlob.size>limit()*1048576)setErr('Saiz masih lebih had. Cuba potong video lebih pendek.');
   }catch(e){
@@ -165,6 +185,16 @@ $('go').addEventListener('click',async function(){
   }finally{
     busy=false;$('go').disabled=false;show('prog',false);
   }
+});
+
+$('again').addEventListener('click',function(){
+  if(busy)return;
+  try{URL.revokeObjectURL($('pv').src)}catch(e){}
+  file=null;outBlob=null;$('f').value='';
+  $('pv').pause();$('pv').removeAttribute('src');$('pv').load();
+  show('res',false);show('info',false);show('warn',false);show('go',false);show('prog',false);setErr('');show('derr',false);
+  $('info').innerHTML='';
+  window.scrollTo({top:0,behavior:'smooth'});
 });
 
 $('dl').addEventListener('click',async function(){
