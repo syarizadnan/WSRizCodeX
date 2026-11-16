@@ -536,23 +536,20 @@ $('dl').addEventListener('click',async function(){
   /* ===== TETAPAN KOD =====
      Setiap app ada senarai hash SHA-256 sendiri.
      Tambah kod baru = tambah hash baru dalam senarai "hashes".
-     Kod boleh guna semula; setiap kali masuk, sah MINUTES minit. */
+     Kod boleh guna semula; setiap kali masuk, sah HOURS jam. */
   var APPS={
     ws:{name:"WhatsApp",key:"rx_ok_ws",hashes:[
-      "bbb28c6bc6b9ff5a9d21564d577e351f74c2fe07a66b2ae27cc3c9e6db7b49d4" /* wa2026 */
+
       "d2845dc561d6014ebfbae6bd07fa48e0c0c0ce7c32bd587fd2a8fff118a56230", /* Riz123 */
-
-
-      
+      "bbb28c6bc6b9ff5a9d21564d577e351f74c2fe07a66b2ae27cc3c9e6db7b49d4" /* wa2026 */
     ]},
     tt:{name:"TikTok",key:"rx_ok_tt",hashes:[
-      "dc141544f350e5f4d963826987950198ea48c4f1345c580c69be41b3d302c24e" /* tt2026 */
+      
       "d2845dc561d6014ebfbae6bd07fa48e0c0c0ce7c32bd587fd2a8fff118a56230", /* Riz123 */
-      
-      
+      "dc141544f350e5f4d963826987950198ea48c4f1345c580c69be41b3d302c24e" /* tt2026 */
     ]}
   };
-  var minutes=1;
+  var HOURS=1; /* tukar nombor ni untuk ubah tempoh (dalam jam) */
 
   var $=function(i){return document.getElementById(i)};
   var modal=$("modal"),sheet=$("sheet"),title=$("mt"),code=$("code"),msg=$("msg"),
@@ -574,8 +571,9 @@ $('dl').addEventListener('click',async function(){
   function update(){
     var left=expiry(active)-Date.now();
     if(left<=0){closeApp(true);return}
-    var s=Math.ceil(left/1000),m=Math.floor(s/60);s=s%60;
-    timer.textContent="Baki "+(m<10?"0":"")+m+":"+(s<10?"0":"")+s;
+    var t=Math.ceil(left/1000),h=Math.floor(t/3600),m=Math.floor(t%3600/60),s=t%60;
+    function p(n){return (n<10?"0":"")+n}
+    timer.textContent="Baki "+p(h)+":"+p(m)+":"+p(s);
   }
   function openApp(a){
     active=a;notice.hidden=true;
@@ -587,7 +585,7 @@ $('dl').addEventListener('click',async function(){
     clearInterval(tick);tick=null;active=null;
     appview.hidden=true;frame.srcdoc="<!DOCTYPE html>";
     document.documentElement.style.overflow="";
-    if(expired){notice.textContent="Masa "+MINUTES+" minit dah tamat. Masukkan kod semula untuk guna lagi.";notice.hidden=false}
+    if(expired){notice.textContent="Masa "+HOURS+" jam dah tamat. Masukkan kod semula untuk guna lagi.";notice.hidden=false}
   }
 
   document.querySelectorAll(".btn").forEach(function(el){
@@ -603,7 +601,7 @@ $('dl').addEventListener('click',async function(){
     if(!(window.crypto&&crypto.subtle)){msg.textContent="Buka laman ni guna https di Chrome atau Safari.";return}
     sha(code.value.trim()).then(function(h){
       if(APPS[cur].hashes.indexOf(h)>-1){
-        try{sessionStorage.setItem(APPS[cur].key,String(Date.now()+MINUTES*60000))}catch(err){}
+        try{sessionStorage.setItem(APPS[cur].key,String(Date.now()+HOURS*3600000))}catch(err){}
         closeBox(true);openApp(cur);
       }else{msg.textContent="Kod salah. Cuba lagi.";code.select()}
     });
