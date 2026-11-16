@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RizCodeX | 4K ke 1080p untuk TikTok</title>
+<style>
+:root{--bg:#08080c;--card:#14141c;--tx:#fff;--mut:#9a9aab;--pink:#fe2c55;--cyan:#25f4ee;--bd:#262634;--warn:#fbbf24;--err:#ff6b81;color-scheme:dark;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:radial-gradient(600px 300px at 90% -5%,rgba(254,44,85,.22),transparent),radial-gradient(600px 300px at 5% 0,rgba(37,244,238,.18),transparent),var(--bg);background-attachment:fixed;color:var(--tx);font:16px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+main{max-width:520px;margin:0 auto;padding:22px 16px 48px}
+.brand{text-align:center;font-size:1.9rem;font-weight:900;letter-spacing:.5px;margin:0 0 14px;background:linear-gradient(90deg,var(--cyan),#fff,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo{width:64px;height:64px;border-radius:20px;background:#000;display:grid;place-items:center;margin:0 auto 12px;box-shadow:-3px -3px 0 var(--cyan),3px 3px 0 var(--pink);font-size:30px}
+h1{font-size:1.55rem;margin:0 0 6px;text-align:center;font-weight:800;text-shadow:-2px 0 var(--cyan),2px 0 var(--pink)}
+p.sub{color:var(--mut);margin:0 0 16px;font-size:.93rem;text-align:center}
+.steps{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:18px}
+.steps span{background:var(--card);border:1px solid var(--bd);border-radius:999px;padding:6px 12px;font-size:.82rem;font-weight:600}
+.steps b{display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--pink));color:#000;font-size:.75rem;margin-right:6px}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:24px;padding:18px;margin-bottom:16px}
+.drop{display:block;border:2px dashed #3a3a4d;border-radius:20px;padding:30px 12px;text-align:center;cursor:pointer;color:var(--mut);transition:.2s}
+.drop.on,.drop:hover{border-color:var(--cyan);background:rgba(37,244,238,.06)}
+.drop .ic{font-size:40px;display:block;margin-bottom:6px}
+.drop b{color:var(--tx);display:block;margin-bottom:2px;font-size:1.05rem}
+input[type=file]{display:none}
+button{width:100%;border:0;border-radius:999px;padding:15px;font-size:1.02rem;font-weight:800;background:linear-gradient(90deg,var(--pink),#ff5c7a);color:#fff;cursor:pointer;box-shadow:0 6px 20px rgba(254,44,85,.35);transition:transform .1s}
+button:active{transform:scale(.97)}
+button:disabled{opacity:.5;cursor:default}
+#dl{background:linear-gradient(90deg,var(--cyan),#6af7f2);color:#001818;box-shadow:0 6px 20px rgba(37,244,238,.3)}
+.row{display:flex;justify-content:space-between;gap:8px;font-size:.92rem;padding:7px 12px;background:#1d1d29;border-radius:14px;margin-bottom:6px}
+.row span:first-child{color:var(--mut)}
+.row span:last-child{font-weight:600}
+.bar{height:12px;background:#22222e;border-radius:99px;overflow:hidden;margin:12px 0 8px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--pink));transition:width .2s}
+.bubble{position:relative;border-radius:18px;padding:10px 14px;font-size:.9rem;margin:10px 0 0}
+.bubble::after{content:"";position:absolute;left:18px;bottom:-7px;width:14px;height:14px;background:inherit;transform:rotate(45deg);border-radius:3px}
+.warn{background:#2a2410;color:var(--warn)}
+.err{background:#2d141b;color:var(--err)}
+.hide{display:none}
+.done{display:inline-block;background:linear-gradient(90deg,var(--cyan),var(--pink));color:#000;font-weight:800;border-radius:999px;padding:5px 14px;font-size:.88rem;margin-bottom:12px}
+video{width:100%;border-radius:18px;background:#000;margin-bottom:12px;max-height:50vh}
+small{color:var(--mut)}
+.seg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:8px 0}
+.seg input{display:none}
+.seg span{display:block;text-align:center;padding:10px 4px;border-radius:999px;border:1.5px solid var(--bd);background:#1d1d29;font-weight:700;font-size:.9rem;cursor:pointer}
+.seg input:checked+span{border-color:var(--cyan);background:rgba(37,244,238,.14);color:var(--cyan)}
+.btns{display:flex;gap:10px;margin-top:14px}
+.btns button{flex:1;padding:15px 8px}
+.tip{text-align:center;color:var(--mut);font-size:.82rem;margin-top:6px}
+</style>
+</head>
+<body>
+<main>
+<div class="brand">RizCodeX</div>
+<div class="logo">🎬</div>
+<h1>4K → 1080p untuk TikTok</h1>
+<p class="sub">FPS kekal sama, kualiti kekal cantik. Semua proses dalam fon, video tak dihantar ke mana-mana.</p>
+<div class="steps"><span><b>1</b>Pilih video</span><span><b>2</b>Tukar</span><span><b>3</b>Simpan</span></div>
+
+<div class="card">
+  <label class="drop" id="drop" for="f"><span class="ic">📲</span><b>Tekan untuk pilih video 4K</b>atau seret fail ke sini</label>
+  <input type="file" id="f" accept="video/*">
+  <div id="info" class="hide" style="margin-top:14px"></div>
+  <p class="bubble warn hide" id="warn"></p>
+  <p class="bubble err hide" id="err"></p>
+  <div id="fpsbox" class="hide" style="margin-top:16px"><small>🎞️ FPS output</small><div class="seg"><label><input type="radio" name="fps" value="0" checked><span>Asal</span></label><label><input type="radio" name="fps" value="60"><span>60 fps</span></label><label><input type="radio" name="fps" value="120"><span>120 fps</span></label></div><small>60/120 fps: frame digandakan (bukan frame baru), gerakan tak jadi lebih lancar. Fail jadi lebih berat.</small></div>
+  <button id="go" class="hide" style="margin-top:16px">⚡ Tukar ke 1080p</button>
+  <button id="go2" class="hide" style="margin-top:10px;background:transparent;color:var(--tx);border:1.5px solid var(--bd);box-shadow:none">🔇 Cuba tanpa audio</button>
+  <div id="prog" class="hide"><div class="bar"><i id="pb"></i></div><small id="pt">Memproses…</small><br><small>Biar skrin hidup dan kekal di halaman ni sampai siap.</small></div>
+</div>
+
+<div class="card hide" id="res">
+  <span class="done">✅ Siap! Sedia untuk TikTok</span>
+  <video id="pv" controls playsinline></video>
+  <div class="row"><span>Saiz asal</span><span id="so"></span></div>
+  <div class="row"><span>Saiz baru</span><span id="sn"></span></div>
+  <div class="row"><span>Resolusi</span><span id="rs"></span></div>
+  <div class="row"><span>FPS</span><span id="fp"></span></div>
+  <div class="btns"><button id="dl">💾 Simpan dalam fon</button></div>
+  <p class="bubble err hide" id="derr"></p>
+</div>
+<p class="tip">Lepas siap, tekan Simpan, lepas tu upload dari galeri TikTok 🎉</p>
+</main>
+
+<script>
+window.__mbReady=(async function(){
+  var V=['1.39.1','1.25.7'];
+  for(var i=0;i<V.length&&typeof window.Mediabunny==='undefined';i++){
+    try{window.Mediabunny=await import('https://cdn.jsdelivr.net/npm/mediabunny@'+V[i]+'/+esm')}
+    catch(e){window.__mbErr=String(e&&e.message||e)}
+  }
+})();
+</script>
+<script>
+(window.__mbReady||Promise.resolve()).then(function(){
+var $=function(i){return document.getElementById(i)};
+var file=null,outBlob=null,outName='video-1080p.mp4',busy=false;
+var MAXBR=20000000,MINBR=4000000;
+function mb(b){return (b/1048576).toFixed(1)+' MB'}
+function show(id,v){$(id).classList.toggle('hide',!v)}
+function setErr(m){$('err').textContent=m||'';show('err',!!m)}
+
+var hasLib=typeof Mediabunny!=='undefined',hasWC=('VideoEncoder' in window)&&('VideoDecoder' in window);
+var supported=hasLib&&hasWC;
+if(!hasLib)setErr('Library gagal dimuat. Cuba refresh, atau buka link ni terus di Chrome/Safari, bukan dalam app lain. [kod: LIB]'+(window.__mbErr?' Butiran: '+window.__mbErr:''));
+else if(!hasWC)setErr('Browser/app ni tak support WebCodecs. Buka link ni terus di Chrome (Android) atau Safari (iPhone, iOS 16.4 ke atas), bukan dalam app lain. [kod: WC]');
+
+function pick(f){
+  if(!f||busy)return;
+  if(!/^video\//.test(f.type)&&!/\.(mp4|mov|m4v|webm|mkv|3gp)$/i.test(f.name)){setErr('Sila pilih fail video.');return}
+  file=f;outBlob=null;show('res',false);setErr('');show('warn',false);
+  $('info').innerHTML='<div class="row"><span>Fail</span><span style="text-align:right;word-break:break-all">'+f.name.replace(/[<>&]/g,'')+'</span></div><div class="row"><span>Saiz</span><span>'+mb(f.size)+'</span></div>';
+  show('info',true);show('go',supported);show('fpsbox',supported);describe();
+}
+async function meta(){
+  var input=new Mediabunny.Input({source:new Mediabunny.BlobSource(file),formats:Mediabunny.ALL_FORMATS});
+  var dur=await input.computeDuration();
+  var vt=await input.getPrimaryVideoTrack();
+  return {input:input,dur:dur,vt:vt};
+}
+async function fpsOf(vt){
+  try{var s=await vt.computePacketStats(100);return s.averagePacketRate}catch(e){return 0}
+}
+async function describe(){
+  try{
+    var m=await meta();
+    if(!m.vt)return;
+    var w=m.vt.displayWidth,h=m.vt.displayHeight,fps=await fpsOf(m.vt);
+    $('info').insertAdjacentHTML('beforeend','<div class="row"><span>Resolusi</span><span>'+w+'×'+h+'</span></div>'+(fps?'<div class="row"><span>FPS</span><span>'+Math.round(fps*100)/100+'</span></div>':'')+'<div class="row"><span>Tempoh</span><span>'+Math.round(m.dur)+' saat</span></div>');
+    if(Math.min(w,h)<=1080)show('warn',true),$('warn').textContent='Video ni dah 1080p atau lebih kecil, resolusi tak diubah.';
+    else if(m.dur>180){show('warn',true);$('warn').textContent='Video panjang ('+Math.round(m.dur/60)+' min). Proses dalam fon boleh ambil masa lama.'}
+  }catch(e){}
+}
+$('f').addEventListener('change',function(e){pick(e.target.files[0])});
+var d=$('drop');
+['dragover','dragenter'].forEach(function(t){d.addEventListener(t,function(e){e.preventDefault();d.classList.add('on')})});
+['dragleave','drop'].forEach(function(t){d.addEventListener(t,function(e){e.preventDefault();d.classList.remove('on')})});
+d.addEventListener('drop',function(e){pick(e.dataTransfer.files[0])});
+
+async function run(noAudio){
+  if(!file||busy)return;show('go2',false);
+  busy=true;setErr('');show('res',false);$('go').disabled=true;show('prog',true);$('pb').style.width='0%';$('pt').textContent='Memproses…';
+  try{
+    var m=await meta();
+    if(!m.vt)throw new Error('Tiada video track dalam fail ini.');
+    var w=m.vt.displayWidth,h=m.vt.displayHeight;
+    var srcBr=file.size*8/m.dur;
+    var vbr=Math.round(Math.min(MAXBR,Math.max(MINBR,srcBr)));
+    var v={codec:'avc',bitrate:vbr};
+    var scaled=Math.min(w,h)>1080;
+    if(scaled){ if(h<=w)v.height=1080; else v.width=1080; }
+    var sf=await fpsOf(m.vt);
+    var tf=+document.querySelector('input[name=fps]:checked').value;
+    if(tf&&sf&&tf>sf+1)v.frameRate=tf;else tf=0;
+    var tries=noAudio?[{discard:true}]:[undefined,{codec:'aac',numberOfChannels:2,sampleRate:44100,bitrate:128000}];
+    var output,lastE=null;
+    for(var t=0;t<tries.length;t++){
+      var mm=t?await meta():m;
+      output=new Mediabunny.Output({format:new Mediabunny.Mp4OutputFormat(),target:new Mediabunny.BufferTarget()});
+      try{
+        var o={input:mm.input,output:output,video:v};
+        if(tries[t])o.audio=tries[t];
+        var conv=await Mediabunny.Conversion.init(o);
+        conv.onProgress=function(p){var x=Math.round(p*100);$('pb').style.width=x+'%';$('pt').textContent='Memproses… '+x+'%'};
+        await conv.execute();lastE=null;break;
+      }catch(e){lastE=e;$('pb').style.width='0%'}
+    }
+    if(lastE){
+      if(!noAudio&&/audio/i.test(String(lastE&&lastE.message||lastE))){show('go2',true);throw new Error('Audio video ni tak dapat di-encode oleh fon. Tekan "Cuba tanpa audio" kalau nak teruskan tanpa bunyi. ('+(lastE.message||lastE)+')')}
+      throw lastE;
+    }
+    outBlob=new Blob([output.target.buffer],{type:'video/mp4'});
+    outName=file.name.replace(/\.[^.]+$/,'')+'-1080p.mp4';
+    $('pv').src=URL.createObjectURL(outBlob);
+    $('so').textContent=mb(file.size);
+    $('sn').textContent=mb(outBlob.size);
+    $('rs').textContent=scaled?'1080p (asal '+w+'×'+h+')':w+'×'+h+' (asal)';
+    $('fp').textContent=tf?tf+' (digandakan dari '+Math.round(sf)+')':(sf?Math.round(sf*100)/100+' (sama macam asal)':'Sama macam asal');
+    show('res',true);
+    if(noAudio){show('warn',true);$('warn').textContent='Video ni disimpan tanpa audio.'}
+  }catch(e){
+    setErr('Gagal: '+(e&&e.message?e.message:e));
+  }finally{
+    busy=false;$('go').disabled=false;show('prog',false);
+  }
+}
+$('go').addEventListener('click',function(){run(false)});
+$('go2').addEventListener('click',function(){run(true)});
+
+$('dl').addEventListener('click',async function(){
+  if(!outBlob)return;
+  $('derr').classList.add('hide');
+  try{
+    var dls=window.claude&&window.claude.use?await window.claude.use('downloads'):null;
+    if(dls){await dls.save({filename:outName,data:outBlob})}
+    else{var a=document.createElement('a');a.href=URL.createObjectURL(outBlob);a.download=outName;document.body.appendChild(a);a.click();a.remove()}
+  }catch(e){
+    if(e&&e.code==='declined')return;
+    $('derr').textContent='Tak dapat simpan. Tekan lama pada video di atas, pilih simpan.';show('derr',true);
+  }
+});
+});
+</script>
+</body>
+</html>
